@@ -14,10 +14,22 @@ def load_data():
 data = load_data()
 
 
+num_records = len(data)
+avg_billing = data["Billing Amount"].mean()
 
 
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-app = dash.Dash(__name__)
+
+app.layout = dbc.Container([
+    dbc.Row([
+        dbc.Col(html.H1("Healthcare Dashboard"), width=12, className="text-center my-5")
+    ]),
+    dbc.Row([
+        dbc.Col(html.Div(f"Total Patient Records: {num_records}", className="text-center my-3 top-text"), width=7),
+        dbc.Col(html.Div(f"Average Billing Amount: {avg_billing:,.2f}", className="text-center my-3 top-text"), width=7),
+    ], className="mb-5")
+])
 
 
 if __name__ == '__main__':
