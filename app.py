@@ -28,8 +28,44 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(html.Div(f"Total Patient Records: {num_records}", className="text-center my-3 top-text"), width=7),
         dbc.Col(html.Div(f"Average Billing Amount: {avg_billing:,.2f}", className="text-center my-3 top-text"), width=7),
-    ], className="mb-5")
+    ], className="mb-5"),
+
+
+    # showing age distribution based gender
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.H4("Patient Demographics", className="card-title"),
+                    dcc.Dropdown(options=[{"label": gender, "value": gender} for gender in data["Gender"].unique()], value= None, placeholder="Select a Gender", id="gender-filter"),
+                    dcc.Graph(id="age-distribution")
+                ])
+            ])
+        ], width=7)
+    ])
+
 ])
+
+
+
+@app.callback(
+    Output(component_id="age-distribution", component_property="figure"),
+    Input(component_id="gender-filter", component_property="value")
+)
+def update_distribution(selected_gender):
+    if selected_gender:
+        filtered_df = data[data["Gender"] == selected_gender]
+    else:
+        filtered_df = data
+    
+    if filtered_df.empty:
+        return{}
+    
+    fig = px.histogram(filtered_df, x="Age", color="Gender", title="Age Distribution by Gender", color_discrete_sequence=["#636EFA","#EF553B"] )
+
+    return fig
+
+
 
 
 if __name__ == '__main__':
