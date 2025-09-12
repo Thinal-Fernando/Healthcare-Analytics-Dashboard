@@ -41,13 +41,23 @@ app.layout = dbc.Container([
                     dcc.Graph(id="age-distribution")
                 ])
             ])
-        ], width=7)
+        ], width=7),
+
+        # showing medical condition percentages (pie chart)
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.H4("Medical Condition Distribution", className="card-title"),
+                    dcc.Graph(id="condition-distribution")
+                ])
+            ])
+        ], width=7)  
     ])
 
 ])
 
 
-
+#callback for graph what shows gender variation
 @app.callback(
     Output(component_id="age-distribution", component_property="figure"),
     Input(component_id="gender-filter", component_property="value")
@@ -64,6 +74,20 @@ def update_distribution(selected_gender):
     fig = px.histogram(filtered_df, x="Age", color="Gender", title="Age Distribution by Gender", color_discrete_sequence=["#636EFA","#EF553B"] )
 
     return fig
+
+
+
+#callback for pie chart that shows Medical Condition distribution 
+@app.callback(
+    Output(component_id="condition-distribution", component_property="figure"),
+    Input(component_id="gender-filter", component_property="value")
+)
+
+def update_medical_condition(selected_gender):
+    filtered_df = data[data["Gender"] == selected_gender] if selected_gender else data
+    fig = px.pie(filtered_df, names="Medical Condition", title="Medical Condition Distribution")
+    return fig
+
 
 
 
