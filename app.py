@@ -52,7 +52,19 @@ app.layout = dbc.Container([
                 ])
             ])
         ], width=7)  
-    ])
+    ]),
+ 
+      #added Graph to show Insurance Provider Data
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.H4("Insurance Provider Comparison", className="card-title"),
+                    dcc.Graph(id="insurance-comparison")
+                ])
+            ])
+        ], width=12)
+    ]),
 
 ])
 
@@ -86,6 +98,19 @@ def update_distribution(selected_gender):
 def update_medical_condition(selected_gender):
     filtered_df = data[data["Gender"] == selected_gender] if selected_gender else data
     fig = px.pie(filtered_df, names="Medical Condition", title="Medical Condition Distribution")
+    return fig
+
+
+
+#callback for bar chart that shows Insurance Provider
+@app.callback(
+    Output(component_id="insurance-comparison", component_property="figure"),
+    Input(component_id="gender-filter", component_property="value")
+)
+
+def update_insurance(selected_gender):
+    filtered_df = data[data["Gender"] == selected_gender] if selected_gender else data
+    fig = px.bar(filtered_df, x="Insurance Provider", y="Billing Amount", color="Medical Condition", barmode="group", title="Insurance Provided Price Comparison", color_discrete_sequence=px.colors.qualitative.Set2 )
     return fig
 
 
