@@ -65,6 +65,20 @@ app.layout = dbc.Container([
             ])
         ], width=12)
     ]),
+    
+    #graph to show billing amount distribution with a slider to select a required Amount range 
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.H4("Billing Amount Distribution", className="card-title"),
+                    dcc.Slider(id="billing-slider", min=data["Billing Amount"].min(), max=data["Billing Amount"].max(), value = data["Billing Amount"].median(), marks={int(value): f"${int(value):,}" for value in data["Billing Amount"].quantile([0,0.25,0.5,0.75,1]).values}, step=100
+                     ),
+                    dcc.Graph(id="billing-distribution")
+                ])
+            ])
+        ], width=12)
+    ])
 
 ])
 
@@ -114,6 +128,19 @@ def update_insurance(selected_gender):
     return fig
 
 
+
+#callback for histogram that shows billing amount distribution with slider to change the range and gender selection
+@app.callback(
+    Output(component_id="billing-distribution", component_property="figure"),
+    Input(component_id="gender-filter", component_property="value"),
+    Input(component_id="billing-slider", component_property="value")
+)
+
+def update_billing(selected_gender, slider_value):
+    filtered_df = data[data["Gender"] == selected_gender] if selected_gender else data
+    filtered_df = filtered_df[filtered_df["Billing Amount"] <= slider_value]
+    fig = px.histogram(filtered_df, x="Billing Amount", nbins=10 , title="Billing Amount Distribution")
+    return fig
 
 
 
