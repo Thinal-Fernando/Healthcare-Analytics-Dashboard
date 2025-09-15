@@ -9,6 +9,7 @@ def load_data():
     df = pd.read_csv('assets/healthcare.csv')    # Loading the dataset
     df["Billing Amount"] = pd.to_numeric(df['Billing Amount'])    # converting billing amount to a numeric value
     df["Date of Admission"] = pd.to_datetime(df['Date of Admission'])    # Convert 'Date of Admission' into proper datetime
+    df["YearMonth"] = df['Date of Admission'].dt.to_period("M")  #create a new column 'YearMonth' from the admission date with months
     return df
 
 data = load_data()
@@ -78,8 +79,20 @@ app.layout = dbc.Container([
                 ])
             ])
         ], width=12)
+    ]),
+    # graph to display the trends in admission and radio buttons to select graph type and a drop down menu to specify the condition
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.H4("Trends in Admission", className="card-title"),
+                    dcc.RadioItems(options=[{"label": "Line Chart", 'value': 'line'}, {"label": "Bar Chart", 'value': 'bar'}], value='line', inline=True, className='mb-4' , id="chart-type"),
+                    dcc.Dropdown(id="condition-filter", options=[{'label': condition , 'value': condition} for condition in data["Medical Condition"].unique()], value=None, placeholder="Select a Medical Condition"),
+                    dcc.Graph(id="admission-trends")
+                ])
+            ])
+        ], width=12)
     ])
-
 ])
 
 
@@ -141,6 +154,31 @@ def update_billing(selected_gender, slider_value):
     filtered_df = filtered_df[filtered_df["Billing Amount"] <= slider_value]
     fig = px.histogram(filtered_df, x="Billing Amount", nbins=10 , title="Billing Amount Distribution")
     return fig
+
+
+
+
+#callback for a bar or line graph that shows number of patients with conditions and the option to specify the condition
+
+@app.callback(
+    Output(component_id="admission-trends", component_property="figure"),
+    Input(component_id="chart-type", component_property="value"),
+    Input(component_id="condition-filter", component_property="value")
+)
+
+def update_billing(chart_type, selected_condition):
+    filtered_df = data[data["Medical Condition"] == selected_condition] if selected_condition else data
+    trend_df = filtered_df.groupby("YearMonth").size().reset_index(name="Count")
+    trend_df["YearMonth"] = trend_df["YearMonth"].astype(str)
+
+    if chart_type =="line":
+        fig = px.line(trend_df, x="YearMonth", y="Count", title="Admission Trends over Time")
+    else:
+        fig = px.bar(trend_df, x="YearMonth", y="Count", title="Admission Trends over Time")
+
+    return fig
+
+
 
 
 
