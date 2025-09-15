@@ -19,7 +19,7 @@ num_records = len(data)
 avg_billing = data["Billing Amount"].mean()
 
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, "assets/style.css"])
 
 
 app.layout = dbc.Container([
@@ -27,8 +27,8 @@ app.layout = dbc.Container([
         dbc.Col(html.H1("Healthcare Dashboard"), width=12, className="text-center my-5")
     ]),
     dbc.Row([
-        dbc.Col(html.Div(f"Total Patient Records: {num_records}", className="text-center my-3 top-text"), width=7),
-        dbc.Col(html.Div(f"Average Billing Amount: {avg_billing:,.2f}", className="text-center my-3 top-text"), width=7),
+        dbc.Col(html.Div(f"Total Patient Records: {num_records}", className="text-center my-3 top-text"), width=12),
+        dbc.Col(html.Div(f"Average Billing Amount: {avg_billing:,.2f}", className="text-center my-3 top-text"), width=12)
     ], className="mb-5"),
 
 
@@ -42,17 +42,18 @@ app.layout = dbc.Container([
                     dcc.Graph(id="age-distribution")
                 ])
             ])
-        ], width=7),
+        ], width=6),
 
         # showing medical condition percentages (pie chart)
         dbc.Col([
-            dbc.Card([
+            dbc.Card(
                 dbc.CardBody([
                     html.H4("Medical Condition Distribution", className="card-title"),
                     dcc.Graph(id="condition-distribution")
-                ])
-            ])
-        ], width=7)  
+                ]),
+                className="special-card"
+            )
+        ], width=6)  
     ]),
  
       #added Graph to show Insurance Provider Data
@@ -86,14 +87,14 @@ app.layout = dbc.Container([
             dbc.Card([
                 dbc.CardBody([
                     html.H4("Trends in Admission", className="card-title"),
-                    dcc.RadioItems(options=[{"label": "Line Chart", 'value': 'line'}, {"label": "Bar Chart", 'value': 'bar'}], value='line', inline=True, className='mb-4' , id="chart-type"),
+                    dcc.RadioItems(options=[{"label": "Line Chart", 'value': 'line'}, {"label": "Bar Chart", 'value': 'bar'}], value='line', inline=True, className='mb-4 my-radio' , id="chart-type"),
                     dcc.Dropdown(id="condition-filter", options=[{'label': condition , 'value': condition} for condition in data["Medical Condition"].unique()], value=None, placeholder="Select a Medical Condition"),
                     dcc.Graph(id="admission-trends")
                 ])
             ])
         ], width=12)
     ])
-])
+], fluid=True)
 
 
 #callback for graph what shows gender variation
