@@ -3,6 +3,8 @@ import pandas as pd
 import dash_bootstrap_components as dbc
 from dash import dcc, Input, Output, html
 import plotly.express as px
+import os
+import base64
 
 
 def load_data():
@@ -196,6 +198,25 @@ def update_billing(chart_type, selected_condition):
     return fig
 
 
+
+#created callback that 
+
+@app.callback(
+    Output(component_id="output-data", component_property="children"),
+    Input(component_id="upload-data", component_property="contents"),
+    Input(component_id="upload-data", component_property="filename")
+)
+
+def save_file(contents, filename):
+    if contents is None:
+        return "No file uploaded yet."
+    
+    content_type, content_string = contents.split(',')
+    decoded = base64.b64decode(content_string)
+
+    save_to_path = os.path.join(os.getcwd(), filename)
+    with open(save_to_path, "wb") as f:
+        f.write(decoded)
 
 
 
