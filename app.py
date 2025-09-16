@@ -93,6 +93,22 @@ app.layout = dbc.Container([
                 ])
             ])
         ], width=12)
+
+    # Added section so user can upload csv file  
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dcc.Upload(
+                id='upload-data' , 
+                children=html.Div(['Drag and Drop or', html.A('Select Files')]), 
+                style={
+                    'width': 'auto', 'height': '100px', 'lineHeight' : '100px', 
+                    'borderWidth': '1px', 'borderStyle': 'dashed', 
+                    'textAlign' : 'center', 'margin': '10px'
+                }, multiple=False
+            ),
+            html.Div(id='output-data')
+        ])
     ])
 ], fluid=True)
 
