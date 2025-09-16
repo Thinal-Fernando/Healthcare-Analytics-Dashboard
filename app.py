@@ -199,7 +199,7 @@ def update_billing(chart_type, selected_condition):
 
 
 
-#created callback that 
+#created callback that allows user to upload custom csv files
 
 @app.callback(
     Output(component_id="output-data", component_property="children"),
@@ -211,13 +211,20 @@ def save_file(contents, filename):
     if contents is None:
         return "No file uploaded yet."
     
-    content_type, content_string = contents.split(',')
+    content_type, content_string = contents.split(',') #decoding the file 
     decoded = base64.b64decode(content_string)
 
-    save_to_path = os.path.join(os.getcwd(), filename)
+    upload_folder = os.path.join(os.getcwd(), "assets") # defining the folder to saver it to in side the current directorty
+
+    os.makedirs(upload_folder, exist_ok=True)   # creating the folder if it dosent exist to avoid errors
+
+
+
+    save_to_path = os.path.join(upload_folder, filename)  # updated this to have folder path
     with open(save_to_path, "wb") as f:
         f.write(decoded)
 
+    return f"File '{filename}' uploaded and saved successfully in {os.getcwd()}!"   # lets the user kn the file name and path its saved
 
 
 if __name__ == '__main__':
