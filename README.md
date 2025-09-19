@@ -1,5 +1,5 @@
 
-# Healthcare Analytics Dashboard
+# ❤️ Healthcare Analytics Dashboard
 
 An interactive dashboard built with **Dash (Plotly)**, **Pandas**, and **Bootstrap** for visualizing healthcare data.  
 This tool helps track patient demographics, medical conditions, billing amounts, insurance comparisons, and admission trends.  
@@ -7,7 +7,7 @@ It also supports uploading custom healthcare datasets for dynamic analysis.
 
 
 
-## Features
+## 🌟 Features
 
 - **Patient Overview**  
   Displays total patient records and average billing amount.
@@ -31,16 +31,16 @@ It also supports uploading custom healthcare datasets for dynamic analysis.
   Upload your own CSV healthcare dataset and explore instantly.
 
 
-## Architeture
-
+## 📂 Architeture
+```text
 ├── app.py # Main Dash application
 ├── assets/
 │ ├── healthcare.csv # Sample dataset
 │ ├── style.css # Custom styling
-├── screenshots/ # Add your screenshots here
+├── screenshots/ # Screenshots
+```
 
-
-## Installation
+## 🚀 Installation
 
 
 ```bash
@@ -56,7 +56,7 @@ python main.py
 The app will start on http://127.0.0.1:8050.
 ```
     
-## Dataset
+## 📊 Dataset
 
 The sample dataset (healthcare.csv) includes:
 
@@ -69,7 +69,7 @@ The sample dataset (healthcare.csv) includes:
 You can replace or upload your own CSV file with similar columns.
 
 
-## Styling
+## 🎨 Styling
 Custom styles are defined in assets/style.css, including:
 
 - Card hover effects
@@ -79,14 +79,27 @@ Custom styles are defined in assets/style.css, including:
 - Radio button styling
 
   
-## Screenshots
+## 📷 Screenshots
 
+1. Dashboard Overview
 ![Dashboard Overview](screenshots/dashboard-home.png)
+
+2. Patient Demographics
 ![Patient Demographics](screenshots/demographics.png)
+
+3. Medical Condition Distribution
 ![Medical Condition Distribution](screenshots/medical-conditions.png)
+
+4. Insurance Provider Comparison
 ![Insurance Provider Comparison](screenshots/insurance-comparison.png)
+
+5. Billing Amount Distribution
 ![Billing Amount Distribution](screenshots/billing-distribution.png)
+
+6. Admission Trends
 ![Admission Trends](screenshots/admission-trends-bar.png)
+
+7. File Upload Feature
 ![File Upload Feature](screenshots/file-upload.png)
 
 
