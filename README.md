@@ -91,6 +91,16 @@ Custom styles are defined in assets/style.css, including:
 - Radio button styling
 
 <br>
+
+## 💻 Tech Stack
+- **Python** – core programming language  
+- **Dash (Plotly)** – interactive web framework for building dashboards  
+- **Dash Bootstrap Components** – Bootstrap styling & responsive layout  
+- **Pandas** – data manipulation and analysis  
+- **Plotly** – data visualization (charts, graphs)  
+- **CSS** – custom design enhancements  
+
+<br>
   
 ## 📷 Screenshots
 
