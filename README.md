@@ -1,11 +1,19 @@
-
 # ❤️ Healthcare Analytics Dashboard
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Plotly Dash](https://img.shields.io/badge/Plotly%20Dash-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Base64](https://img.shields.io/badge/Base64-00C7B7?style=for-the-badge&logo=databricks&logoColor=white)
+![OS](https://img.shields.io/badge/OS-000000?style=for-the-badge&logo=windows&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
 
 An interactive dashboard built with **Dash (Plotly)**, **Pandas**, and **Bootstrap** for visualizing healthcare data.  
 This tool helps track patient demographics, medical conditions, billing amounts, insurance comparisons, and admission trends.  
 It also supports uploading custom healthcare datasets for dynamic analysis.
 
-
+<br>
 
 ## 🌟 Features
 
@@ -30,6 +38,7 @@ It also supports uploading custom healthcare datasets for dynamic analysis.
 - **Custom Data Upload**  
   Upload your own CSV healthcare dataset and explore instantly.
 
+<br>
 
 ## 📂 Architeture
 ```text
@@ -39,22 +48,24 @@ It also supports uploading custom healthcare datasets for dynamic analysis.
 │ ├── style.css # Custom styling
 ├── screenshots/ # Screenshots
 ```
+<br>
 
 ## 🚀 Installation
 
 
 ```bash
 # Clone repository
-git clone https://github.com/your-username Healthcare-Analytics-Dashboard.git 
+git clone https://github.com/your-username/Healthcare-Analytics-Dashboard.git 
   
 # Install dependencies
 pip install -r requirements.txt
 
 # Run application
-python main.py
+python app.py
 
 The app will start on http://127.0.0.1:8050.
 ```
+<br>
     
 ## 📊 Dataset
 
@@ -68,6 +79,7 @@ The sample dataset (healthcare.csv) includes:
 
 You can replace or upload your own CSV file with similar columns.
 
+<br>
 
 ## 🎨 Styling
 Custom styles are defined in assets/style.css, including:
@@ -78,6 +90,7 @@ Custom styles are defined in assets/style.css, including:
 
 - Radio button styling
 
+<br>
   
 ## 📷 Screenshots
 
@@ -102,7 +115,7 @@ Custom styles are defined in assets/style.css, including:
 7. File Upload Feature
 ![File Upload Feature](screenshots/file-upload.png)
 
-
+<br>
 
 ## License
 
